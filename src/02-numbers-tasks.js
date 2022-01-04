@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable radix */
 /* *******************************************************************************************
  *                                                                                           *
  * Please read the following tutorial before implementing tasks:                              *
@@ -109,10 +111,12 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
+
+/* TO FIX */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const scalarProduct = Math.abs(x1 * y1) + Math.abs(x2 * y2);
-  const modA = Math.abs(Math.sqrt((x1 + x2) ** 2));
-  const modB = Math.abs(Math.sqrt((y1 + y2) ** 2));
+  const scalarProduct = x1 * x2 + y1 * y2;
+  const modA = Math.sqrt((x1 ** 2 + y1 ** 2));
+  const modB = Math.sqrt((x2 ** 2 + y2 ** 2));
   return Math.acos(scalarProduct / (modA * modB));
 }
 
@@ -128,8 +132,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     5     => 5
  *     0     => 0
  */
-function getLastDigit(/* value */) {
-  throw new Error('Not implemented');
+function getLastDigit(num) {
+  return parseInt(num.toString().slice(-1));
 }
 
 
@@ -144,8 +148,8 @@ function getLastDigit(/* value */) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-function parseNumberFromString(/* value */) {
-  throw new Error('Not implemented');
+function parseNumberFromString(num) {
+  return Number(num);
 }
 
 /**
@@ -161,8 +165,8 @@ function parseNumberFromString(/* value */) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelepipedDiagonal(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getParallelepipedDiagonal(a, b, c) {
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 
@@ -183,8 +187,8 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  return Math.round(num / 10 ** pow) * 10 ** pow;
 }
 
 /**
@@ -204,8 +208,12 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  if (n === 0 || n === 1) return false;
+  for (let i = 2; i < n; i++) {
+    if (n % i === 0) return false;
+  }
+  return true;
 }
 
 /**
@@ -223,8 +231,8 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  return Number(value) ? Number(value) : def;
 }
 
 module.exports = {
