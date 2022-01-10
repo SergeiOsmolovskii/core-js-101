@@ -10,6 +10,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-cond-assign */
+/* eslint-disable no-bitwise */
 /**
  *
  * Returns the 'Fizz','Buzz' or an original number using the following rules:
@@ -189,8 +191,13 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const arr = str.split('');
+  const result = arr.filter((item) => {
+    if (arr.indexOf(item) === arr.lastIndexOf(item)) return item;
+    else return null;
+  });
+  return result[0];
 }
 
 
@@ -216,8 +223,20 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const arr = [];
+  arr.push({
+    item: a,
+    isInclude: isStartIncluded,
+  });
+  arr.push({
+    item: b,
+    isInclude: isEndIncluded,
+  });
+  arr.sort((first, second) => first.item - second.item);
+  const openBraket = arr[0].isInclude === true ? '[' : '(';
+  const closeBraket = arr[1].isInclude === true ? ']' : ')';
+  return `${openBraket}${arr[0].item}, ${arr[1].item}${closeBraket}`;
 }
 
 
@@ -233,8 +252,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -250,8 +269,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return Number(num.toString().split('').reverse().join(''));
 }
 
 
@@ -275,8 +294,15 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const value = ccn.toString();
+  let item = 0;
+  const isOdd = value.length % 2 !== 0;
+  for (let i = 0; i < value.length; i++) {
+    let n = parseInt(value[i], 10);
+    item += (isOdd | 0) === (i % 2) && (n *= 2) > 9 ? (n - 9) : n;
+  }
+  return (item % 10) === 0;
 }
 
 /**
@@ -293,8 +319,11 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let nString = num.toString();
+  const count = (item) => item.split('').reduce((accum, current) => +accum + +current, 0);
+  while (nString >= 10) nString = count(nString.toString());
+  return nString;
 }
 
 
@@ -319,8 +348,21 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const openBracket = ['(', '[', '{', '<'];
+  const closeBracket = [')', ']', '}', '>'];
+  const stack = [];
+  if (str.length === 0) return true;
+  for (let i = 0; i < str.length; i++) {
+    if (openBracket.includes(str[i])) {
+      stack.push(str[i]);
+    } else if (closeBracket.indexOf(str[i]) === openBracket.indexOf(stack[stack.length - 1])) {
+      stack.pop();
+    } else return false;
+  }
+  if (stack.length === 0) {
+    return true;
+  } else return false;
 }
 
 
@@ -344,8 +386,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
